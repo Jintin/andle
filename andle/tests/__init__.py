@@ -5,7 +5,7 @@ from unittest import TestCase
 import os
 import andle
 import andle.sdk
-import andle.project
+import andle.android
 
 
 class TestAndle(TestCase):
@@ -24,7 +24,7 @@ class TestAndle(TestCase):
 		self.assertEqual(data['dependency']['com.google.android.gms:play-services'], '8.1.0', "depedency not correct")
 		self.assertEqual(data['dependency']['com.android.support:appcompat-v7'], '23.0.1', "depedency not correct")
 
-	def test_project(self):
+	def test_android(self):
 		"""
 		update project test
 		"""
@@ -33,7 +33,7 @@ class TestAndle(TestCase):
 		f = open(self.CURRENT_PATH + "/dist/build.gradle", 'w')
 		f.write(old)
 		f.close()
-		andle.project.update(self.CURRENT_PATH + "/dist", data)
+		andle.android.update(self.CURRENT_PATH + "/dist", data)
 
 		txt1 = open(self.CURRENT_PATH + "/dist/build.gradle").read()
 		txt2 = open(self.CURRENT_PATH + "/src/new.gradle").read()

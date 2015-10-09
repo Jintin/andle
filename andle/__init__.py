@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import project
+import android
 import sdk
 
 
@@ -11,7 +11,7 @@ def update(path, dryrun=False):
 	:param dryrun: dryrun or not
 	"""
 	data = sdk.load()
-	project.update(path, data, dryrun)
+	android.update(path, data, dryrun)
 
 
 def setsdk(path):
