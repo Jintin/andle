@@ -14,11 +14,11 @@ def setpath(path):
 	:return: error path or none
 	"""
 	if not os.path.exists(path):
-		print "not exist path"
+		print("not exist path")
 		sys.exit(0)
 	with open(DATA_PATH, "w+") as file_:
 		file_.write(os.path.abspath(path))
-	print "setsdk:" + getpath()
+	print("setsdk:" + getpath())
 
 
 def getpath():
@@ -27,7 +27,7 @@ def getpath():
 	:return: path
 	"""
 	if not os.path.exists(DATA_PATH):
-		print "set sdk path first"  # TODO prompt input
+		print("set sdk path first")  # TODO prompt input
 		sys.exit(0)
 	file = open(DATA_PATH)
 	return file.read()
@@ -95,7 +95,7 @@ def update_value(var, obj, key):
 	:param obj: dic obj
 	:param key: dic key
 	"""
-	if not obj.has_key(key):
+	if not key in obj:
 		obj[key] = var
 		return
 	list1 = obj[key].split(".")

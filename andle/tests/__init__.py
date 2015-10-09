@@ -17,7 +17,7 @@ class TestAndle(TestCase):
 		sdk load data test
 		"""
 		data = andle.sdk.load(self.SDK_PATH)
-		print data
+		print(data)
 
 		self.assertEqual(data['build-tools'], '23.0.1', "build-tools not correct")
 		self.assertEqual(data['platforms'], '23', "platforms not correct")

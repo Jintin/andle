@@ -2,7 +2,6 @@
 
 import os
 import fnmatch
-from cStringIO import StringIO
 
 
 def update(path, data, dryrun=False):
@@ -24,7 +23,7 @@ def parse(path, data, dryrun=False):
 	:param data: newest config data
 	:param dryrun: dryrun or not
 	"""
-	print "check " + path
+	print("check " + path)
 
 	global modify
 	modify = False
@@ -34,7 +33,8 @@ def parse(path, data, dryrun=False):
 	deps = data["dependency"]
 
 	with open(path) as f:
-		io = StringIO(f.read())
+		io = f.read()
+		print(io)
 	global line
 	for line in io:
 		word = line.split()
@@ -66,7 +66,7 @@ def parse(path, data, dryrun=False):
 	if modify:
 		save(path, new_data, dryrun)
 	else:
-		print "OK"
+		print("OK")
 
 
 def update_value(name, old, new):
@@ -80,7 +80,7 @@ def update_value(name, old, new):
 		return
 	global line
 	global modify
-	print name + ": " + old + " -> " + new
+	print(name + ": " + old + " -> " + new)
 	modify = True
 	line = line.replace(old, new)
 
@@ -93,7 +93,7 @@ def save(path, new_data, dryrun):
 	:param dryrun: dryrun or not
 	"""
 	if dryrun:
-		print new_data
+		print(new_data)
 	else:
 		f = open(path, 'w')
 		f.write(new_data)
