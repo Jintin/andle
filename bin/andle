@@ -1,0 +1,26 @@
+#!/usr/bin/env python
+
+import argparse
+import andle
+
+UPDATE = "update"
+SETSDK = "setsdk"
+
+parser = argparse.ArgumentParser(description="android gradle file update")
+parser.add_argument("-v", "--version", action="version", version="%(prog)s 0.1")
+
+subparsers = parser.add_subparsers(dest="sub_command")
+
+update_cmd = subparsers.add_parser(UPDATE, help="update command")
+update_cmd.add_argument("-p", "--path", type=str, default=".", help="root path")
+update_cmd.add_argument("-d", "--dryrun", action='store_true', help="dryrun")
+
+sdk_cmd = subparsers.add_parser(SETSDK, help="set sdk command")
+sdk_cmd.add_argument("-p", "--path", required=True, type=str, default=".", help="sdk path")
+
+args = parser.parse_args()
+
+if args.sub_command == UPDATE:
+	andle.update(args.path, args.dryrun)
+elif args.sub_command == SETSDK:
+	andle.setsdk(args.path)
