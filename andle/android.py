@@ -33,8 +33,7 @@ def parse(path, data, dryrun=False):
 	deps = data["dependency"]
 
 	with open(path) as f:
-		io = f.read()
-		print(io)
+		io = f.readlines()
 	global line
 	for line in io:
 		word = line.split()
