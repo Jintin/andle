@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-import android
-import sdk
+import andle.android
+import andle.sdk
 
 
 def update(path, dryrun=False):
