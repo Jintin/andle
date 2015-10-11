@@ -2,13 +2,10 @@
 
 import os
 import fnmatch
-import maven
+import andle.maven
 
 JCENTER_URL = "https://jcenter.bintray.com/"
 MAVEN_URL = "https://repo1.maven.org/maven2/"
-url1 = "https://jcenter.bintray.com/com/actionbarsherlock/actionbarsherlock/maven-metadata.xml"
-url2 = "https://repo1.maven.org/maven2/com/facebook/android/facebook-android-sdk/maven-metadata.xml"
-
 
 def update(path, data, dryrun=False, remote=False):
 	"""
@@ -65,11 +62,11 @@ def parse(path, data, dryrun=False, remote=False):
 				if deps.__contains__(tag):
 					update_value(tag, version, deps[tag])
 				elif remote:
-					jcenter_version = maven.load(JCENTER_URL, tag)
+					jcenter_version = andle.maven.load(JCENTER_URL, tag)
 					if jcenter_version != None:
 						update_value(tag, version, jcenter_version)
 					else:
-						maven_version = maven.load(MAVEN_URL, tag)
+						maven_version = andle.maven.load(MAVEN_URL, tag)
 						if (maven_version != None):
 							update_value(tag, version, maven_version)
 
