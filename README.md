@@ -21,7 +21,7 @@ The most commonly used command:
     -h, --help            show this help message and exit
     -p PATH, --path PATH  root path
     -d, --dryrun          dryrun
-    -r, --remote          dryrun
+    -r, --remote          check jcenter and mavenCentral
 See `andle --help` or `andle <command> --help` for more information.
 
 ## Contributing
