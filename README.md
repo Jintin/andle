@@ -15,9 +15,13 @@ Simple install by [pip](http://pip.readthedocs.org/en/stable/installing):
 
 The most commonly used command:
 
-    $ andle update -p <path>  [-d dryrun]   # sync project gradle config
-    $ andle setsdk -p <path>                # set android sdk path
+    $ andle setsdk -p <path>                            # set android sdk path
+    $ andle update -p <path> [-d dryrun] [-r remote]    # sync project gradle config
      
+    -h, --help            show this help message and exit
+    -p PATH, --path PATH  root path
+    -d, --dryrun          dryrun
+    -r, --remote          dryrun
 See `andle --help` or `andle <command> --help` for more information.
 
 ## Contributing

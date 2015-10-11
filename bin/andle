@@ -7,13 +7,14 @@ UPDATE = "update"
 SETSDK = "setsdk"
 
 parser = argparse.ArgumentParser(description="android gradle file update")
-parser.add_argument("-v", "--version", action="version", version="%(prog)s 1.1.1")
+parser.add_argument("-v", "--version", action="version", version="%(prog)s 1.2")
 
 subparsers = parser.add_subparsers(dest="sub_command")
 
 update_cmd = subparsers.add_parser(UPDATE, help="update command")
 update_cmd.add_argument("-p", "--path", type=str, default=".", help="root path")
 update_cmd.add_argument("-d", "--dryrun", action='store_true', help="dryrun")
+update_cmd.add_argument("-r", "--remote", action='store_true', help="check jcenter and mavenCentral")
 
 sdk_cmd = subparsers.add_parser(SETSDK, help="set sdk command")
 sdk_cmd.add_argument("-p", "--path", required=True, type=str, default=".", help="sdk path")
@@ -21,6 +22,6 @@ sdk_cmd.add_argument("-p", "--path", required=True, type=str, default=".", help=
 args = parser.parse_args()
 
 if args.sub_command == UPDATE:
-	andle.update(args.path, args.dryrun)
+	andle.update(args.path, args.dryrun, args.remote)
 elif args.sub_command == SETSDK:
 	andle.setsdk(args.path)

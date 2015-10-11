@@ -2,9 +2,15 @@
 
 import os
 import fnmatch
+import maven
+
+JCENTER_URL = "https://jcenter.bintray.com/"
+MAVEN_URL = "https://repo1.maven.org/maven2/"
+url1 = "https://jcenter.bintray.com/com/actionbarsherlock/actionbarsherlock/maven-metadata.xml"
+url2 = "https://repo1.maven.org/maven2/com/facebook/android/facebook-android-sdk/maven-metadata.xml"
 
 
-def update(path, data, dryrun=False):
+def update(path, data, dryrun=False, remote=False):
 	"""
 	update your android projects config
 	:param path: path to android projects
@@ -13,10 +19,10 @@ def update(path, data, dryrun=False):
 	"""
 	for root, dir, files in os.walk(path):
 		for file in fnmatch.filter(files, "build.gradle"):
-			parse(root + "/" + file, data, dryrun)
+			parse(root + "/" + file, data, dryrun, remote)
 
 
-def parse(path, data, dryrun=False):
+def parse(path, data, dryrun=False, remote=False):
 	"""
 	analyze gradle file to update
 	:param path: gradle file path
@@ -53,11 +59,19 @@ def parse(path, data, dryrun=False):
 			if string.startswith("'") or string.startswith("\""):
 				dep = string.split(string[0])[1]
 				tag = dep[:dep.rfind(":")]
+				version = dep[dep.rfind(":") + 1:]
+				if version.__contains__("@"):
+					version = version[:version.find("@")]
 				if deps.__contains__(tag):
-					version = dep[dep.rfind(":") + 1:]
-					if version.__contains__("@"):
-						version = version[:version.find("@")]
 					update_value(tag, version, deps[tag])
+				elif remote:
+					jcenter_version = maven.load(JCENTER_URL, tag)
+					if jcenter_version != None:
+						update_value(tag, version, jcenter_version)
+					else:
+						maven_version = maven.load(MAVEN_URL, tag)
+						if (maven_version != None):
+							update_value(tag, version, maven_version)
 
 		new_data += line
 
