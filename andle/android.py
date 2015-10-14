@@ -6,6 +6,8 @@ import andle.maven
 
 JCENTER_URL = "https://jcenter.bintray.com/"
 MAVEN_URL = "https://repo1.maven.org/maven2/"
+COMPILE_TAGS = ["compile", "testCompile", "androidTestCompile"]
+
 
 def update(path, data, dryrun=False, remote=False):
 	"""
@@ -51,12 +53,13 @@ def parse(path, data, dryrun=False, remote=False):
 			buildToolsVersion = word[1].replace("\"", "")
 			update_value("buildToolsVersion", buildToolsVersion, data["build-tools"])
 		# find compile tag
-		elif line.__contains__("compile"):
+		elif any(line.__contains__(compile) for compile in COMPILE_TAGS):
 			string = word[1]
 			if string.startswith("'") or string.startswith("\""):
 				dep = string.split(string[0])[1]
 				tag = dep[:dep.rfind(":")]
 				version = dep[dep.rfind(":") + 1:]
+
 				if version.__contains__("@"):
 					version = version[:version.find("@")]
 				if deps.__contains__(tag):
@@ -65,10 +68,8 @@ def parse(path, data, dryrun=False, remote=False):
 					jcenter_version = andle.maven.load(JCENTER_URL, tag)
 					if jcenter_version != None:
 						update_value(tag, version, jcenter_version)
-					else:
-						maven_version = andle.maven.load(MAVEN_URL, tag)
-						if (maven_version != None):
-							update_value(tag, version, maven_version)
+						deps[tag] = jcenter_version
+
 
 		new_data += line
 

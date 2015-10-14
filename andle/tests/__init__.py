@@ -6,6 +6,7 @@ import os
 import andle
 import andle.sdk
 import andle.android
+import andle.maven
 
 
 class TestAndle(TestCase):
@@ -35,8 +36,19 @@ class TestAndle(TestCase):
 		f.close()
 		andle.android.update(self.CURRENT_PATH + "/dist", data)
 
-		txt1 = open(self.CURRENT_PATH + "/dist/build.gradle").read()
-		txt2 = open(self.CURRENT_PATH + "/src/new.gradle").read()
+		dist = open(self.CURRENT_PATH + "/dist/build.gradle").read()
+		new = open(self.CURRENT_PATH + "/src/new.gradle").read()
 
-		self.assertNotEqual(old, txt1, "same compare data")
-		self.assertEqual(txt1, txt2, "update not correct")
+		self.assertNotEqual(old, dist, "same compare data")
+		self.assertEqual(dist, new, "update not correct")
+
+		andle.android.update(self.CURRENT_PATH + "/dist", data, False, True)
+		dist = open(self.CURRENT_PATH + "/dist/build.gradle").read()
+		self.assertNotEqual(dist, new, "remote not work")
+
+	def test_remote(self):
+		"""
+		remote maven test
+		"""
+		value = andle.maven.load(andle.android.JCENTER_URL, "com.facebook.android:facebook-android-sdk")
+		self.assertTrue(value != None)
