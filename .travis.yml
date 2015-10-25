@@ -5,15 +5,7 @@ python:
   - "3.3"
   - "3.4"
   - "3.5"
-  - "pypy"
 install:
-  # workaround try
-  - pip install -U pip wheel
-  - pip install tox
-  # workaround try end
   - pip install .
 script:
-  # workaround try
-  - tox -e $TOX_ENV
-  # workaround try end
   - nosetests
