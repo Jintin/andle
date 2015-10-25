@@ -7,8 +7,13 @@ python:
   - "3.5"
   - "pypy"
 install:
-  - pip install --upgrade pip
+  # workaround try
+  - pip install -U pip wheel
+  - pip install tox
+  # workaround try end
   - pip install .
-sudo: required
-# command to run tests
-script: nosetests
+script:
+  # workaround try
+  - tox -e $TOX_ENV
+  # workaround try end
+  - nosetests
