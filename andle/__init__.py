@@ -3,20 +3,13 @@
 import andle.android
 import andle.sdk
 
+VERSION = "1.4.0"
 
-def update(path, dryrun=False, remote=False):
-	"""
-	update android projects config
-	:param path: projects path
-	:param dryrun: dryrun or not
-	"""
+
+def update(path, dryrun, remote, gradle):
 	data = sdk.load()
-	android.update(path, data, dryrun, remote)
+	android.update(path, data, dryrun, remote, gradle)
 
 
 def setsdk(path):
-	"""
-	set android sdk path
-	:param path: sdk path
-	"""
 	sdk.setpath(path)

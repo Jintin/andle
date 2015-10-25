@@ -8,11 +8,6 @@ DATA_PATH = expanduser("~") + "/.andle"
 
 
 def setpath(path):
-	"""
-	set android sdk path
-	:param path: sdk path
-	:return: error path or none
-	"""
 	if not os.path.exists(path):
 		print("not exist path")
 		sys.exit(0)
@@ -22,10 +17,6 @@ def setpath(path):
 
 
 def getpath():
-	"""
-	get sdk path
-	:return: path
-	"""
 	if not os.path.exists(DATA_PATH):
 		print("set sdk path first")  # TODO prompt input
 		sys.exit(0)
@@ -34,10 +25,6 @@ def getpath():
 
 
 def load(path=getpath()):
-	"""
-	load sdk config and dependency data
-	:return: sdk data
-	"""
 	data = {}
 
 	# find build tool
@@ -56,24 +43,12 @@ def load(path=getpath()):
 
 
 def find_config(data, name, path):
-	"""
-	find config in sdk folder
-	:param data: sdk data
-	:param name: which folder
-	:param path: sdk path
-	"""
 	for f in os.listdir(path + "/" + name + "/"):
 		if os.path.isdir(path + "/" + name + "/" + f):
 			update_value(f, data, name)
 
 
 def find_dependency(data, tag, path):
-	"""
-	find dependency in sdk folder
-	:param data: sdk data
-	:param tag: current tag
-	:param path: current path
-	"""
 	no_dir = True
 	for f in os.listdir(path):
 		if (os.path.isdir(path + "/" + f)):
@@ -89,12 +64,6 @@ def find_dependency(data, tag, path):
 
 
 def update_value(var, obj, key):
-	"""
-	update obj value if newer
-	:param var: new value
-	:param obj: dic obj
-	:param key: dic key
-	"""
 	if not key in obj:
 		obj[key] = var
 		return

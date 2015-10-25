@@ -3,10 +3,13 @@
 from unittest import TestCase
 
 import os
+import shutil
+import filecmp
 import andle
 import andle.sdk
 import andle.android
-import andle.maven
+import andle.remote
+import andle.gradle
 
 
 class TestAndle(TestCase):
@@ -30,25 +33,26 @@ class TestAndle(TestCase):
 		update project test
 		"""
 		data = andle.sdk.load(self.SDK_PATH)
-		old = open(self.CURRENT_PATH + "/src/old.gradle").read()
-		f = open(self.CURRENT_PATH + "/dist/build.gradle", 'w')
-		f.write(old)
-		f.close()
-		andle.android.update(self.CURRENT_PATH + "/dist", data)
+		old = self.CURRENT_PATH + "/src/old.gradle"
+		dest = self.CURRENT_PATH + "/dest/build.gradle"
+		new = self.CURRENT_PATH + "/src/new.gradle"
 
-		dist = open(self.CURRENT_PATH + "/dist/build.gradle").read()
-		new = open(self.CURRENT_PATH + "/src/new.gradle").read()
+		shutil.copyfile(old, dest)
+		andle.android.update(self.CURRENT_PATH + "/dest", data)
 
-		self.assertNotEqual(old, dist, "same compare data")
-		self.assertEqual(dist, new, "update not correct")
-
-		andle.android.update(self.CURRENT_PATH + "/dist", data, False, True)
-		dist = open(self.CURRENT_PATH + "/dist/build.gradle").read()
-		self.assertNotEqual(dist, new, "remote not work")
+		self.assertTrue(filecmp.cmp(dest, new), "not change")
 
 	def test_remote(self):
 		"""
 		remote maven test
 		"""
-		value = andle.maven.load(andle.android.JCENTER_URL, "com.facebook.android:facebook-android-sdk")
-		self.assertTrue(value != None)
+		value = andle.remote.load("com.facebook.android:facebook-android-sdk",
+								  "file://" + self.CURRENT_PATH + "/remote/")
+		self.assertEqual(value, "4.8.0", "version not match")
+
+	def test_gradle(self):
+		"""
+		gradle version test
+		"""
+		value = andle.gradle.load("file://" + self.CURRENT_PATH + "/gradle/version")
+		self.assertEqual(value, "2.8", "version not match")
