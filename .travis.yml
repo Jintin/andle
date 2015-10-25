@@ -9,5 +9,6 @@ python:
 install:
   - pip install --upgrade pip
   - pip install .
+sudo: required
 # command to run tests
 script: nosetests
