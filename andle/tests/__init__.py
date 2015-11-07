@@ -48,7 +48,7 @@ class TestAndle(TestCase):
 		"""
 		value = andle.remote.load("com.facebook.android:facebook-android-sdk",
 								  "file://" + self.CURRENT_PATH + "/remote/")
-		self.assertEqual(value, "4.8.0", "version not match")
+		self.assertEqual(value, "4.7.0", "version not match")
 
 	def test_gradle(self):
 		"""

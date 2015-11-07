@@ -4,7 +4,6 @@ import json
 import andle.http
 import codecs
 
-
 URL = "http://services.gradle.org/versions/current"
 
 
