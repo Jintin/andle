@@ -24,9 +24,10 @@ def getpath():
 	return file.read()
 
 
-def load(path=getpath()):
+def load(path=""):
 	data = {}
-
+	if path == "":
+		path = getpath()
 	# find build tool
 	find_config(data, "build-tools", path)
 
