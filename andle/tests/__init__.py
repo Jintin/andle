@@ -40,6 +40,8 @@ class TestAndle(TestCase):
 		shutil.copyfile(old, dest)
 		andle.android.update(self.CURRENT_PATH + "/dest", data)
 
+		print(dest)
+
 		self.assertTrue(filecmp.cmp(dest, new), "not change")
 
 	def test_remote(self):
