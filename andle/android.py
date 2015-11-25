@@ -5,7 +5,7 @@ import fnmatch
 import andle.remote
 import andle.gradle
 
-COMPILE_TAGS = ["compile", "testCompile", "androidTestCompile"]
+COMPILE_TAGS = ["compile", "Compile"]
 GRADLE_TAGS = ["classpath"]
 
 is_dryrun = False
@@ -45,7 +45,7 @@ def parse_gradle(path, version):
 	global line
 	for line in io:
 		if line.startswith("distributionUrl"):
-			update_value("distributionUrl", line[16:],
+			update_value("distributionUrl", line[16:].strip(),
 						 "https\://services.gradle.org/distributions/gradle-" + version + "-all.zip")
 		new_data += line
 
@@ -69,7 +69,8 @@ def parse_dependency(path, data):
 	for line in io:
 		compare = line.strip()
 		word = line.split()
-
+		if word.__len__() == 0:
+			continue
 		# find compileSdkVersion tag
 		if not find_sdk and line.__contains__("compileSdkVersion"):
 			find_sdk = True
@@ -81,7 +82,7 @@ def parse_dependency(path, data):
 			buildToolsVersion = word[1].replace("\"", "")
 			update_value("buildToolsVersion", buildToolsVersion, data["build-tools"])
 		# find compile tag
-		elif any(compare.startswith(compile) for compile in COMPILE_TAGS):
+		elif any(word[0].endswith(compile) for compile in COMPILE_TAGS):
 			check_version(word, deps, check_remote)
 		# find gradle tag
 		elif check_gradle and any(compare.startswith(gradle) for gradle in GRADLE_TAGS):

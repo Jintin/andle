@@ -3,7 +3,7 @@
 from setuptools import setup
 
 setup(name='andle',
-	  version='1.4.2',
+	  version='1.4.3',
 	  description='android dependency sync tool',
 	  long_description='andle is a command line tool to help you sync dependencies, sdk or build tool version in gradle base Android projects.',
 	  keywords='android gradle config build version dependency sync',
