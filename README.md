@@ -1,7 +1,7 @@
 # andle
 [![PyPI version](https://badge.fury.io/py/andle.svg)](https://badge.fury.io/py/andle) [![Build Status](https://travis-ci.org/Jintin/andle.svg?branch=master)](https://travis-ci.org/Jintin/andle)
 
-andle is a command line tool to help you sync android dependencies, sdk or build tool version in gradle base Android projects.
+andle is a Android tool help you sync dependencies, sdk or build tool version.
 
 ## Installation
 Simple install by [pip](http://pip.readthedocs.org/en/stable/installing):
