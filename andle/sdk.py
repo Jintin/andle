@@ -2,6 +2,7 @@
 
 import os
 import sys
+import version
 from os.path import expanduser
 
 DATA_PATH = expanduser("~") + "/.andle"
@@ -65,16 +66,8 @@ def find_dependency(data, tag, path):
 
 
 def update_value(var, obj, key):
-	if not key in obj:
-		obj[key] = var
-		return
-	list1 = obj[key].split(".")
-	list2 = var.split(".")
-	index = 0
-
-	while list1[index] == list2[index]:
-		if list1.__len__() <= index + 1 or list2.__len__() <= index + 1:
-			return list1.__len__() < list2.__len__()
-		index += 1
-	if list1[index] < list2[index]:
+	if key in obj:
+		if version.newer(obj[key], var) > 0:
+			obj[key] = var
+	else:
 		obj[key] = var

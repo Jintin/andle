@@ -10,6 +10,7 @@ import andle.sdk
 import andle.android
 import andle.remote
 import andle.gradle
+import andle.version
 
 
 class TestAndle(TestCase):
@@ -58,3 +59,16 @@ class TestAndle(TestCase):
 		"""
 		value = andle.gradle.load("file://" + self.CURRENT_PATH + "/gradle/version")
 		self.assertEqual(value, "2.8", "version not match")
+
+	def test_version(self):
+		"""
+		version number test
+		"""
+		assert andle.version.newer('1', '2') == 1
+		assert andle.version.newer('2', '1') == -1
+		assert andle.version.newer('1', '1') == 0
+		assert andle.version.newer('13.0.1', '13.00.02') == 1
+		assert andle.version.newer('1.1.1.1', '1.1.1.1') == 0
+		assert andle.version.newer('1.1.1.2', '1.1.1.1') == -1
+		assert andle.version.newer('3.1.1.0', '3.1.2.10') == 1
+		assert andle.version.newer('1.1', '1.10') == 1
