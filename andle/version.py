@@ -16,3 +16,6 @@ def newer(version1, version2):
 		ret = -cmp(p, parts2[i])
 		if ret: return ret
 	return 0
+
+def cmp(a, b):
+	return (a > b) - (a < b)
