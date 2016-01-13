@@ -64,11 +64,11 @@ class TestAndle(TestCase):
 		"""
 		version number test
 		"""
-		assert andle.version.newer('1', '2') == 1
-		assert andle.version.newer('2', '1') == -1
-		assert andle.version.newer('1', '1') == 0
-		assert andle.version.newer('13.0.1', '13.00.02') == 1
-		assert andle.version.newer('1.1.1.1', '1.1.1.1') == 0
-		assert andle.version.newer('1.1.1.2', '1.1.1.1') == -1
-		assert andle.version.newer('3.1.1.0', '3.1.2.10') == 1
-		assert andle.version.newer('1.1', '1.10') == 1
+		self.assertEqual(andle.version.newer('1', '2'), 1)
+		self.assertEqual(andle.version.newer('2', '1'), -1)
+		self.assertEqual(andle.version.newer('1', '1'), 0)
+		self.assertEqual(andle.version.newer('13.0.1', '13.00.02'), 1)
+		self.assertEqual(andle.version.newer('1.1.1.1', '1.1.1.1'), 0)
+		self.assertEqual(andle.version.newer('1.1.1.2', '1.1.1.1'), -1)
+		self.assertEqual(andle.version.newer('3.1.1.0', '3.1.2.10'), 1)
+		self.assertEqual(andle.version.newer('1.1', '1.10'), 1)
