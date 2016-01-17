@@ -7,10 +7,6 @@ import andle.gradle
 
 COMPILE_TAGS = ["compile", "Compile"]
 
-is_dryrun = False
-check_remote = False
-check_gradle = False
-
 
 def update(path, data, dryrun=False, remote=False, gradle=False):
 	global is_dryrun
@@ -20,12 +16,11 @@ def update(path, data, dryrun=False, remote=False, gradle=False):
 	global check_gradle
 	check_gradle = gradle
 
-	gradle_version = andle.gradle.load()
-
 	for file in filter(path, "build.gradle"):
 		parse_dependency(file, data)
 
 	if check_gradle:
+		gradle_version = andle.gradle.load()
 		for file in filter(path, "gradle-wrapper.properties"):
 			parse_gradle(file, gradle_version)
 
@@ -66,32 +61,45 @@ def parse_dependency(path, data):
 	new_data = ""
 	global modify
 	modify = False
-	deps = data["dependency"]
 
 	global line
 	for line in io:
 		word = line.split()
 		if word.__len__() >= 2:
-			first = word[0]
-
-			# find compileSdkVersion tag
-			if first == "compileSdkVersion":
-				platforms = word[1]
-				update_value("compileSdkVersion", platforms, data["platforms"])
-			# find buildToolsVersion tag
-			elif first == "buildToolsVersion":
-				buildToolsVersion = word[1].replace("\"", "")
-				update_value("buildToolsVersion", buildToolsVersion, data["build-tools"])
-			# find compile tag
-			elif any(first.endswith(compile) for compile in COMPILE_TAGS):
-				check_version(word, deps, check_remote)
-			# find gradle tag
-			elif check_gradle and first.startswith("classpath"):
-				check_version(word, deps, check_gradle)
+			check_dependency(word, data)
+			check_classpath(word, data)
 		new_data += line
 
 	# save back
 	save(path, new_data)
+
+
+def check_dependency(word, data):
+	first = word[0]
+	# find compileSdkVersion tag
+	if first == "compileSdkVersion":
+		platforms = word[1]
+		update_value("compileSdkVersion", platforms, data["platforms"])
+		return True
+	# find buildToolsVersion tag
+	elif first == "buildToolsVersion":
+		buildToolsVersion = word[1].replace("\"", "")
+		update_value("buildToolsVersion", buildToolsVersion, data["build-tools"])
+		return True
+	# find compile tag
+	elif any(first.endswith(compile) for compile in COMPILE_TAGS):
+		check_version(word, data["dependency"], check_remote)
+		return True
+	else:
+		return False
+
+
+def check_classpath(word, data):
+	if check_gradle and first.startswith("classpath"):
+		check_version(word, data["dependency"], check_gradle)
+		return True
+	else:
+		return False
 
 
 def check_version(word, deps, check_online):
@@ -99,16 +107,22 @@ def check_version(word, deps, check_online):
 	if string.startswith("'") or string.startswith("\""):
 		dep = string.split(string[0])[1]
 		tag = dep[:dep.rfind(":")]
-		version = dep[dep.rfind(":") + 1:]
+		version = get_version(dep)
 
-		if "@" in version:
-			version = version[:version.find("@")]
 		if tag in deps:
 			update_value(tag, version, deps[tag])
 		elif check_online:
 			online_version = andle.remote.load(tag)
 			update_value(tag, version, online_version)
 			deps[tag] = online_version
+
+
+def get_version(dep):
+	version = dep[dep.rfind(":") + 1:]
+
+	if "@" in version:
+		version = version[:version.find("@")]
+	return version
 
 
 def update_value(name, old, new):

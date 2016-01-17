@@ -12,10 +12,10 @@ def newer(version1, version2):
 	elif lendiff < 0:
 		parts1.extend([0] * (-lendiff))
 
+	return cmp(parts1, parts2)
+
+def cmp(parts1, parts2):
 	for i, p in enumerate(parts1):
-		ret = -cmp(p, parts2[i])
+		ret = (p < parts2[i]) - (p > parts2[i])
 		if ret: return ret
 	return 0
-
-def cmp(a, b):
-	return (a > b) - (a < b)
