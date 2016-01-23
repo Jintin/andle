@@ -95,7 +95,7 @@ def check_dependency(word, data):
 
 
 def check_classpath(word, data):
-	if check_gradle and first.startswith("classpath"):
+	if check_gradle and word[0].startswith("classpath"):
 		check_version(word, data["dependency"], check_gradle)
 		return True
 	else:

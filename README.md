@@ -1,5 +1,5 @@
 # andle
-[![PyPI version](https://badge.fury.io/py/andle.svg)](https://badge.fury.io/py/andle) [![Build Status](https://travis-ci.org/Jintin/andle.svg?branch=master)](https://travis-ci.org/Jintin/andle)
+[![PyPI version](https://badge.fury.io/py/andle.svg)](https://badge.fury.io/py/andle) [![Build Status](https://travis-ci.org/Jintin/andle.svg?branch=master)](https://travis-ci.org/Jintin/andle) [![Code Climate](https://codeclimate.com/github/Jintin/andle/badges/gpa.svg)](https://codeclimate.com/github/Jintin/andle)
 
 andle is an Android tool to help you sync dependencies, sdk or build tool version.
 
