@@ -2,13 +2,13 @@
 
 try:
 	from urllib.request import urlopen
-	from urllib.error import HTTPError
 except ImportError:
-	from urllib2 import urlopen, HTTPError
+	from urllib2 import urlopen
 
 
 def request(url):
 	try:
 		return urlopen(url)
-	except HTTPError:
+	except Exception:
+		print("fail to connect url: " + url)
 		return None

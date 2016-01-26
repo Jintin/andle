@@ -7,7 +7,7 @@ UPDATE = "update"
 SETSDK = "setsdk"
 
 parser = argparse.ArgumentParser(description="android gradle file update")
-parser.add_argument("-v", "--version", action="version", version="%(prog)s " + andle.VERSION)
+parser.add_argument("-v", "--version", action="version", version="%(prog)s " + andle.__version__)
 
 subparsers = parser.add_subparsers(dest="sub_command")
 
