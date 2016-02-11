@@ -13,4 +13,5 @@ def load(url=URL):
 		data = json.load(reader(andle.http.request(url)))
 		return data["version"]
 	except Exception:
+		print("fail to connect url: " + url)
 		return None

@@ -10,5 +10,4 @@ def request(url):
 	try:
 		return urlopen(url)
 	except Exception:
-		print("fail to connect url: " + url)
 		return None

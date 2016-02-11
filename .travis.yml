@@ -6,7 +6,11 @@ python:
   - "3.4"
   - "3.5"
   - "pypy"
+before_install:
+  - pip install codecov
 install:
   - sudo python setup.py install
 script:
   - nosetests
+after_success:
+  - codecov

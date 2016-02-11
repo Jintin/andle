@@ -18,4 +18,5 @@ def load(name, url=JCENTER_URL):
 		version = latest.childNodes[0].data
 		return version
 	except AttributeError:
+		print("fail to get version : " + name)
 		return None
