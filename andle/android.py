@@ -79,7 +79,10 @@ def check_dependency(word, data):
 	# find compileSdkVersion tag
 	if first == "compileSdkVersion":
 		platforms = word[1]
-		update_value("compileSdkVersion", platforms, data["platforms"])
+		if data["platforms"] == "N":
+			update_value("compileSdkVersion", platforms, "android-N")
+		else:
+			update_value("compileSdkVersion", platforms, data["platforms"])
 		return True
 	# find buildToolsVersion tag
 	elif first == "buildToolsVersion":
