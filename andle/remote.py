@@ -17,6 +17,6 @@ def load(name, url=JCENTER_URL):
 		latest = versioning.getElementsByTagName("release")[0]
 		version = latest.childNodes[0].data
 		return version
-	except AttributeError:
+	except BaseException:
 		print("fail to get version : " + name)
 		return None
