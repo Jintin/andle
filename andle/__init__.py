@@ -3,12 +3,12 @@
 import andle.android
 import andle.sdk
 
-__version__ = "1.5.6"
+__version__ = "1.6.0"
 
 
-def update(path, dryrun, remote, gradle):
+def update(path, dryrun, remote, gradle, interact):
 	data = sdk.load()
-	android.update(path, data, dryrun, remote, gradle)
+	android.update(path, data, dryrun, remote, gradle, interact)
 
 
 def setsdk(path):

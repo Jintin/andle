@@ -4,17 +4,24 @@ import os
 import fnmatch
 import andle.remote
 import andle.gradle
+try:
+	import __builtin__
+	input = getattr(__builtin__, 'raw_input')
+except (ImportError, AttributeError):
+	pass
 
 COMPILE_TAGS = ["compile", "Compile"]
 
 
-def update(path, data, dryrun=False, remote=False, gradle=False):
+def update(path, data, dryrun=False, remote=False, gradle=False, interact=False):
 	global is_dryrun
 	is_dryrun = dryrun
 	global check_remote
 	check_remote = remote
 	global check_gradle
 	check_gradle = gradle
+	global is_interact
+	is_interact = interact
 
 	for file in filter(path, "build.gradle"):
 		parse_dependency(file, data)
@@ -132,6 +139,10 @@ def update_value(name, old, new):
 	if old == new or new == None:
 		return
 	print(name + ": " + old + " -> " + new)
+
+	if is_interact and input("> ") == "n":
+		print("not modify")
+		return
 	global modify
 	modify = True
 	global line
