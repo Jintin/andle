@@ -51,18 +51,19 @@ def find_config(data, name, path):
 
 
 def find_dependency(data, tag, path):
-	no_dir = True
-	for f in os.listdir(path):
-		if (os.path.isdir(path + "/" + f)):
-			no_dir = False
-			find_dependency(data, tag + "/" + f, path + "/" + f)
-	if no_dir:
-		list = tag[1:].split("/")
-		version = list.pop(len(list) - 1)
-		name = list.pop(len(list) - 1)
-		package = ".".join(list)
+	if os.path.exists(path):
+		no_dir = True
+		for f in os.listdir(path):
+			if (os.path.isdir(path + "/" + f)):
+				no_dir = False
+				find_dependency(data, tag + "/" + f, path + "/" + f)
+		if no_dir:
+			list = tag[1:].split("/")
+			version = list.pop(len(list) - 1)
+			name = list.pop(len(list) - 1)
+			package = ".".join(list)
 
-		update_value(version, data, package + ":" + name)
+			update_value(version, data, package + ":" + name)
 
 
 def update_value(var, obj, key):
