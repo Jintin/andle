@@ -22,7 +22,7 @@ def getpath():
 		print("set sdk path first")  # TODO prompt input
 		sys.exit(0)
 	file = open(DATA_PATH)
-	return file.read()
+	return file.read().rstrip('\n')
 
 
 def load(path=""):
@@ -59,6 +59,8 @@ def find_dependency(data, tag, path):
 				find_dependency(data, tag + "/" + f, path + "/" + f)
 		if no_dir:
 			list = tag[1:].split("/")
+			if len(list) < 2:
+				return
 			version = list.pop(len(list) - 1)
 			name = list.pop(len(list) - 1)
 			package = ".".join(list)
