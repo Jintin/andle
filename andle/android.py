@@ -138,6 +138,8 @@ def get_version(dep):
 def update_value(name, old, new):
 	if old == new or new == None:
 		return
+	if andle.version.newer(new, old) > 0:
+		return
 	print(name + ": " + old + " -> " + new)
 
 	if is_interact and input("> ") == "n":
