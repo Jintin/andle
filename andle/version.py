@@ -18,6 +18,9 @@ def cmp(parts1, parts2):
 	for i, p in enumerate(parts1):
 		p = str(p)
 		s = str(parts2[i])
+		if p.isdigit() and s.isdigit():
+			p = int(p)
+			s = int(s)
 		ret = (p < s) - (p > s)
 		if ret: return ret
 	return 0
