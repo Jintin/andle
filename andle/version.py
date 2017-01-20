@@ -16,6 +16,8 @@ def newer(version1, version2):
 
 def cmp(parts1, parts2):
 	for i, p in enumerate(parts1):
-		ret = (p < parts2[i]) - (p > parts2[i])
+		p = str(p)
+		s = str(parts2[i])
+		ret = (p < s) - (p > s)
 		if ret: return ret
 	return 0
