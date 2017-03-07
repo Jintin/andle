@@ -3,7 +3,7 @@
 import andle.android
 import andle.sdk
 
-__version__ = "1.7.2"
+__version__ = "1.8.0"
 
 
 def update(path, dryrun, remote, gradle, interact):
