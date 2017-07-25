@@ -10,7 +10,7 @@ try:
 except (ImportError, AttributeError):
     pass
 
-COMPILE_TAGS = ["compile", "Compile"]
+COMPILE_TAGS = ["compile", "Compile", "api", "implementation", "Implementation"]
 
 
 def update(path, data, dryrun=False, remote=False, gradle=False, interact=False):
