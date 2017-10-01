@@ -4,7 +4,7 @@ import andle.http
 from xml.dom import minidom
 
 JCENTER_URL = "https://jcenter.bintray.com/"
-# MAVEN_URL = "https://repo1.maven.org/maven2/"
+GOOGLE_URL = "https://maven.google.com/"
 
 
 def load(name, url=JCENTER_URL):
@@ -19,5 +19,8 @@ def load(name, url=JCENTER_URL):
         version = latest.childNodes[0].data
         return version
     except BaseException:
-        print("fail to get version : " + name)
-        return None
+        if url == JCENTER_URL:
+            return load(name, GOOGLE_URL)
+        else:
+            print("fail to get version : " + name)
+            return None
