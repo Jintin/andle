@@ -38,11 +38,7 @@ def load(path=""):
 
     # find dependencies
     data["dependency"] = {}
-    find_dependency(data["dependency"], "", path +
-                    "/extras/android/m2repository")
-    find_dependency(data["dependency"], "", path +
-                    "/extras/google/m2repository")
-
+    
     return data
 
 
@@ -50,29 +46,6 @@ def find_config(data, name, path):
     for f in os.listdir(path + "/" + name + "/"):
         if os.path.isdir(path + "/" + name + "/" + f):
             update_value(f, data, name)
-
-
-def find_dependency(data, tag, path):
-    if find_dependency_folder(data, tag, path):
-        return
-    list = tag[1:].split("/")
-    if len(list) < 2:
-        return
-    version = list.pop(len(list) - 1)
-    name = list.pop(len(list) - 1)
-    package = ".".join(list)
-
-    update_value(version, data, package + ":" + name)
-
-
-def find_dependency_folder(data, tag, path):
-    resolved = False
-    if os.path.exists(path):
-        for f in os.listdir(path):
-            if (os.path.isdir(path + "/" + f)):
-                resolved = True
-                find_dependency(data, tag + "/" + f, path + "/" + f)
-    return resolved
 
 
 def update_value(var, obj, key):
