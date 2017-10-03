@@ -26,9 +26,7 @@ class TestAndle(TestCase):
 
 		self.assertEqual(data['build-tools'], '23.0.1', "build-tools not correct")
 		self.assertEqual(data['platforms'], '23', "platforms not correct")
-		self.assertEqual(data['dependency']['com.google.android.gms:play-services'], '8.1.0', "depedency not correct")
-		self.assertEqual(data['dependency']['com.android.support:appcompat-v7'], '23.0.1', "depedency not correct")
-
+		
 	def test_android(self):
 		"""
 		update project test
