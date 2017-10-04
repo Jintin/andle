@@ -34,7 +34,7 @@ def update(path, data, dryrun=False, remote=False, gradle=False, interact=False)
 
 def filter(path, name):
     result = []
-    for root, dir, files in os.walk(path):
+    for root, _, files in os.walk(path):
         for file in fnmatch.filter(files, name):
             result.append(root + "/" + file)
     return result

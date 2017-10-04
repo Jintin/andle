@@ -38,7 +38,7 @@ def load(path=""):
 
     # find dependencies
     data["dependency"] = {}
-    
+
     return data
 
 
