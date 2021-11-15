@@ -1,4 +1,5 @@
 # andle
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/44a25e56a504423ebf37435ed9982cca)](https://app.codacy.com/app/Jintin/andle?utm_source=github.com&utm_medium=referral&utm_content=Jintin/andle&utm_campaign=badger)
 [![PyPI version](https://badge.fury.io/py/andle.svg)](https://badge.fury.io/py/andle)
 [![Build Status](https://travis-ci.org/Jintin/andle.svg?branch=master)](https://travis-ci.org/Jintin/andle)
 [![Code Climate](https://codeclimate.com/github/Jintin/andle/badges/gpa.svg)](https://codeclimate.com/github/Jintin/andle)
